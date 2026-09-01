@@ -25,11 +25,11 @@ export default function BottomNav() {
           path === '/' ? 'text-violet-400' : 'text-violet-700 hover:text-violet-500'
         }`}
       >
-        <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-          <rect x="2" y="3" width="20" height="18" rx="1.5" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <circle cx="12" cy="12" r="2.5" />
-          <path d="M8 3v3M16 3v3M8 18v3M16 18v3" />
+        <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="1.5" />
+          <path d="M6 2 A6 6 0 0 0 18 2" />
+          <path d="M4 21 L4 13 L20 13 L20 21" />
+          <path d="M8 21 L8 17 L16 17 L16 21" />
         </svg>
       </Link>
       <Link
