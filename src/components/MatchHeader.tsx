@@ -55,7 +55,7 @@ export default function MatchHeader({ match, onUpdate }: Props) {
               onChange={e => onUpdate({ opponent: e.target.value })}
             />
             {!match.opponent && (
-              <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-amber-400 text-violet-900 text-[10px] font-black flex items-center justify-center animate-bounce leading-none">
+              <span className="absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-amber-400 text-violet-900 text-[10px] font-black flex items-center justify-center animate-bounce leading-none">
                 !
               </span>
             )}
