@@ -37,13 +37,13 @@ export default function MatchHeader({ match, onUpdate }: Props) {
           </div>
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreUs: Math.max(0, us - 1) })} />
-            <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
+            <span className="text-xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
             <ScoreBtn label="＋" onClick={() => onUpdate({ scoreUs: us + 1 })} />
           </div>
         </div>
 
-        {/* vs */}
-        <span className="text-xs text-violet-300 font-semibold">vs</span>
+        {/* vs — lifted to align with score row center */}
+        <span className="text-base text-violet-300 font-bold mb-1.5">vs</span>
 
         {/* Opponent: name input + score */}
         <div className="flex flex-col items-center gap-0.5">
@@ -55,29 +55,29 @@ export default function MatchHeader({ match, onUpdate }: Props) {
           />
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreOpp: Math.max(0, opp - 1) })} />
-            <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
+            <span className="text-xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
             <ScoreBtn label="＋" onClick={() => onUpdate({ scoreOpp: opp + 1 })} />
           </div>
         </div>
       </div>
 
       {/* Row 2: date / time / formation */}
-      <div className="flex items-center justify-center gap-2 text-[10px] text-violet-200 mt-0.5">
+      <div className="flex items-center justify-center gap-2 text-xs text-violet-200 mt-0.5">
         <input
           type="date"
-          className="bg-transparent text-violet-200 text-[10px] outline-none cursor-pointer"
+          className="bg-transparent text-violet-200 text-xs outline-none cursor-pointer"
           value={match.date}
           onChange={e => onUpdate({ date: e.target.value })}
         />
         <input
           type="time"
-          className="bg-transparent text-violet-200 text-[10px] outline-none cursor-pointer w-[52px]"
+          className="bg-transparent text-violet-200 text-xs outline-none cursor-pointer w-[52px]"
           value={match.time}
           onChange={e => onUpdate({ time: e.target.value })}
         />
         <div className="relative">
           <button
-            className="flex items-center gap-0.5 font-semibold"
+            className="flex items-center gap-0.5 font-semibold whitespace-nowrap"
             onClick={() => setShowFormationPicker(p => !p)}
           >
             {match.formation}
