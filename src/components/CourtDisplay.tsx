@@ -51,7 +51,7 @@ export default function CourtDisplay({ positions, lineup, players, subInMap }: P
   const playerMap = new Map(players.map(p => [p.id, p]))
 
   return (
-    <div className="mx-3 my-1 rounded-xl overflow-hidden" style={{ height: 360 }}>
+    <div className="mx-3 my-1 rounded-xl overflow-hidden" style={{ height: 330 }}>
       <div className="relative w-full h-full bg-black">
         <div className="absolute inset-[3px] border-2 border-white rounded-lg pointer-events-none" />
         <div

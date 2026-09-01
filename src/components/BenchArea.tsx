@@ -12,10 +12,7 @@ export default function BenchArea({ players, subOutMap }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id: 'bench' })
 
   return (
-    <div className="px-3 py-2">
-      <div className="text-sm font-semibold text-violet-300 mb-1.5 uppercase tracking-wider">
-        ベンチ ({players.length}人)
-      </div>
+    <div className="px-3 py-1">
       <div
         ref={setNodeRef}
         className={`rounded-xl border-2 border-dashed transition-all ${
@@ -25,11 +22,11 @@ export default function BenchArea({ players, subOutMap }: Props) {
         }`}
       >
         {players.length === 0 ? (
-          <div className="py-3 text-violet-500 text-xs text-center">
+          <div className="py-2 text-violet-500 text-xs text-center">
             選手をドラッグしてベンチへ
           </div>
         ) : (
-          <div className="flex flex-wrap gap-1.5 p-2">
+          <div className="flex flex-wrap gap-1.5 p-1.5">
             {players.map(p => (
               <PlayerToken key={p.id} player={p} subToNum={subOutMap?.get(p.id)} />
             ))}

@@ -13,7 +13,7 @@ function ScoreBtn({ label, onClick }: { label: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="w-8 h-8 flex items-center justify-center text-violet-200 text-xl font-bold active:text-white active:scale-110 transition-all"
+      className="w-7 h-7 flex items-center justify-center text-violet-200 text-lg font-bold active:text-white active:scale-110 transition-all"
     >
       {label}
     </button>
@@ -69,7 +69,7 @@ export default function MatchHeader({ match, onUpdate }: Props) {
       </div>
 
       {/* Row 2: date / time / formation */}
-      <div className="flex items-center justify-center gap-2 text-xs text-violet-200 mt-0.5">
+      <div className="flex items-center justify-center gap-2 text-xs text-violet-200">
         <input
           type="date"
           className="bg-transparent text-violet-200 text-xs outline-none cursor-pointer"

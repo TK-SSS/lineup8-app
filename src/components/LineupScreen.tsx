@@ -123,7 +123,7 @@ export default function LineupScreen({
       <MatchHeader match={match} onUpdate={onUpdateMatch} />
 
       {/* Navigation row */}
-      <div className="flex items-center justify-between px-3 py-1.5">
+      <div className="flex items-center justify-between px-3 py-0.5">
         <button
           onClick={onPrev}
           disabled={matchIndex === 0}
@@ -167,18 +167,18 @@ export default function LineupScreen({
       <BenchArea players={benchPlayers} subOutMap={subOutMap} />
 
       {/* Bottom action row */}
-      <div className="px-3 pb-2 flex gap-2">
+      <div className="px-3 pb-1 flex gap-2">
         {!match.started ? (
           <button
             onClick={() => onUpdateMatch({ started: true })}
-            className="flex-1 py-2.5 rounded-xl font-bold text-sm text-white bg-violet-500 active:bg-violet-400 transition-all active:scale-95 shadow"
+            className="flex-1 py-2 rounded-xl font-bold text-sm text-white bg-violet-500 active:bg-violet-400 transition-all active:scale-95 shadow"
           >
             途中交代
           </button>
         ) : (
           <button
             onClick={() => onUpdateMatch({ started: false })}
-            className="flex-1 py-2.5 rounded-xl text-sm text-amber-400 bg-amber-900/30 text-center font-semibold active:bg-amber-900/50 transition-all"
+            className="flex-1 py-2 rounded-xl text-sm text-amber-400 bg-amber-900/30 text-center font-semibold active:bg-amber-900/50 transition-all"
           >
             途中交代中{substitutions.length > 0 ? `　${substitutions.length}回` : ''}　✕
           </button>
