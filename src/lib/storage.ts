@@ -1,27 +1,32 @@
 import type { Player, Match, LineupMap } from '@/types'
 
-const KEYS = {
-  players: 'lineup8-players',
-  matches:  'lineup8-matches',
-  lineups:  'lineup8-lineups',
+type AllData = { players: Player[]; matches: Match[]; lineups: Record<string, LineupMap> }
+
+// Module-level cache so 3 hooks share a single in-flight request
+let _pending: Promise<AllData> | null = null
+
+function loadAll(): Promise<AllData> {
+  if (!_pending) {
+    _pending = fetch('/api/data')
+      .then(r => r.json())
+      .catch(() => ({ players: [], matches: [], lineups: {} }))
+  }
+  return _pending
 }
 
-function load<T>(key: string, fallback: T): T {
-  if (typeof window === 'undefined') return fallback
-  try { return JSON.parse(localStorage.getItem(key) ?? 'null') ?? fallback }
-  catch { return fallback }
-}
-
-function save(key: string, value: unknown): void {
-  if (typeof window === 'undefined') return
-  localStorage.setItem(key, JSON.stringify(value))
+function post(body: Partial<AllData>): void {
+  fetch('/api/data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  }).catch(() => {})
 }
 
 export const storage = {
-  loadPlayers:  (): Player[]                          => load(KEYS.players, []),
-  savePlayers:  (v: Player[])                         => save(KEYS.players, v),
-  loadMatches:  (): Match[]                           => load(KEYS.matches, []),
-  saveMatches:  (v: Match[])                          => save(KEYS.matches, v),
-  loadLineups:  (): Record<string, LineupMap>         => load(KEYS.lineups, {}),
-  saveLineups:  (v: Record<string, LineupMap>)        => save(KEYS.lineups, v),
+  loadPlayers:  (): Promise<Player[]>                          => loadAll().then(d => d.players),
+  loadMatches:  (): Promise<Match[]>                           => loadAll().then(d => d.matches),
+  loadLineups:  (): Promise<Record<string, LineupMap>>         => loadAll().then(d => d.lineups),
+  savePlayers:  (v: Player[])                                  => post({ players: v }),
+  saveMatches:  (v: Match[])                                   => post({ matches: v }),
+  saveLineups:  (v: Record<string, LineupMap>)                 => post({ lineups: v }),
 }

@@ -41,7 +41,6 @@ export default function LoginPage() {
             </svg>
           </div>
           <h1 className="text-2xl font-black text-white">LineUp 8</h1>
-          <p className="text-violet-400 text-sm mt-1">8人制サッカー スタメン管理</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

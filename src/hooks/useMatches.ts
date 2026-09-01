@@ -20,7 +20,7 @@ export function useMatches() {
   const initialized = useRef(false)
 
   useEffect(() => {
-    setMatches(storage.loadMatches())
+    storage.loadMatches().then(setMatches)
   }, [])
 
   useEffect(() => {

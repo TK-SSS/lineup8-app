@@ -8,7 +8,7 @@ export function usePlayers() {
   const initialized = useRef(false)
 
   useEffect(() => {
-    setPlayers(storage.loadPlayers())
+    storage.loadPlayers().then(setPlayers)
   }, [])
 
   useEffect(() => {
