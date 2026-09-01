@@ -31,8 +31,10 @@ export default function MatchHeader({ match, onUpdate }: Props) {
       {/* Row 1: our score | vs | opponent input + their score */}
       <div className="flex items-center justify-between gap-2">
         {/* Our score */}
-        <div className="flex flex-col items-center gap-0">
-          <span className="text-[9px] text-violet-200 leading-none">仲本</span>
+        <div className="flex flex-col items-center gap-0.5">
+          <div className="bg-violet-700 text-white text-xs font-bold text-center rounded-lg px-2 py-0.5 w-16 border border-violet-400/60">
+            仲本
+          </div>
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreUs: Math.max(0, us - 1) })} />
             <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
