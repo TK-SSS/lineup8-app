@@ -29,7 +29,7 @@ export default function BenchArea({ players, subOutMap }: Props) {
             選手をドラッグしてベンチへ
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2 p-2">
+          <div className="flex flex-wrap gap-1.5 p-2">
             {players.map(p => (
               <PlayerToken key={p.id} player={p} subToNum={subOutMap?.get(p.id)} />
             ))}

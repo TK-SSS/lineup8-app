@@ -30,13 +30,13 @@ export default function PlayerToken({ player, position, isOver, subFromNum, subT
     >
       {isBench ? (
         /* Bench: pill */
-        <div className={`flex items-center gap-1.5 rounded-full px-3 py-1 border shadow-md ${
+        <div className={`flex items-center gap-1 rounded-full px-2 py-1 border shadow-md ${
           subToNum !== undefined
             ? 'bg-violet-900/60 border-violet-600/60'
             : 'bg-violet-500 border-violet-300/60'
         }`}>
           <span className={`text-sm font-black w-5 text-center ${subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.number}</span>
-          <span className={`text-sm font-semibold max-w-[64px] truncate ${subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.name}</span>
+          <span className={`text-sm font-semibold max-w-[52px] truncate ${subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.name}</span>
           {subToNum !== undefined && (
             <span className="text-amber-400 text-xs font-bold">→{subToNum}</span>
           )}
