@@ -131,6 +131,27 @@ export default function HomePage() {
 
   const lineup = getLineup(match.id)
 
+  // Resolve player display using snapshot so past lineups are unaffected by edits
+  const resolvedPlayers = players.map(p => {
+    const snap = match.playerSnapshot?.[p.id]
+    return snap ? { ...p, ...snap } : p
+  })
+
+  function handleSetPlayer(playerId: string, toPos: string | null) {
+    setPlayer(match.id, playerId, toPos)
+    if (toPos !== null) {
+      const player = players.find(p => p.id === playerId)
+      if (player) {
+        updateMatch(match.id, {
+          playerSnapshot: {
+            ...match.playerSnapshot,
+            [player.id]: { name: player.name, number: player.number },
+          },
+        })
+      }
+    }
+  }
+
   return (
     <>
       {historyOpen && (
@@ -150,11 +171,11 @@ export default function HomePage() {
         <LineupScreen
           match={match}
           lineup={lineup}
-          players={players}
+          players={resolvedPlayers}
           matchIndex={currentIndex}
           totalMatches={matches.length}
           onUpdateMatch={patch => updateMatch(match.id, patch)}
-          onSetPlayer={(playerId, toPos) => setPlayer(match.id, playerId, toPos)}
+          onSetPlayer={handleSetPlayer}
           onSwapPositions={(p1, p2) => swapPositions(match.id, p1, p2)}
           onClear={() => clearLineup(match.id)}
           onPrev={() => setCurrentIndex(i => Math.max(0, i - 1))}

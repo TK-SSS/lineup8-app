@@ -12,6 +12,11 @@ export interface Substitution {
   position: string
 }
 
+export interface PlayerSnapshot {
+  name: string
+  number: number
+}
+
 export interface Match {
   id: string
   date: string    // YYYY-MM-DD
@@ -23,6 +28,7 @@ export interface Match {
   scoreOpp?: number
   started?: boolean
   substitutions?: Substitution[]
+  playerSnapshot?: Record<string, PlayerSnapshot>
 }
 
 // position key -> player id
