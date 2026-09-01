@@ -1,0 +1,29 @@
+export type Formation = '3-3-1' | '2-3-2' | '3-2-2' | '2-4-1'
+
+export interface Player {
+  id: string
+  number: number
+  name: string
+}
+
+export interface Substitution {
+  outId: string
+  inId: string
+  position: string
+}
+
+export interface Match {
+  id: string
+  date: string    // YYYY-MM-DD
+  time: string    // HH:MM
+  opponent: string
+  formation: Formation
+  created_at: string
+  scoreUs?: number
+  scoreOpp?: number
+  started?: boolean
+  substitutions?: Substitution[]
+}
+
+// position key -> player id
+export type LineupMap = Record<string, string>
