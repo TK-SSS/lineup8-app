@@ -28,14 +28,17 @@ export default function MatchHeader({ match, onUpdate }: Props) {
   const opp = match.scoreOpp ?? 0
 
   return (
-    <div className="bg-violet-500 px-3 pt-1 pb-1 text-white">
+    <div className="bg-violet-600 px-3 pt-1 pb-1 text-white">
       {/* Row 1: score + opponent + formation all in one line */}
       <div className="flex items-center justify-between gap-1">
         {/* Our score */}
-        <div className="flex items-center gap-0.5">
-          <ScoreBtn label="−" onClick={() => onUpdate({ scoreUs: Math.max(0, us - 1) })} />
-          <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
-          <ScoreBtn label="＋" onClick={() => onUpdate({ scoreUs: us + 1 })} />
+        <div className="flex flex-col items-center gap-0">
+          <span className="text-[9px] text-violet-200 leading-none">自チーム</span>
+          <div className="flex items-center gap-0.5">
+            <ScoreBtn label="−" onClick={() => onUpdate({ scoreUs: Math.max(0, us - 1) })} />
+            <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
+            <ScoreBtn label="＋" onClick={() => onUpdate({ scoreUs: us + 1 })} />
+          </div>
         </div>
 
         {/* Center: vs + opponent */}
@@ -62,10 +65,13 @@ export default function MatchHeader({ match, onUpdate }: Props) {
         </div>
 
         {/* Opponent score */}
-        <div className="flex items-center gap-0.5">
-          <ScoreBtn label="−" onClick={() => onUpdate({ scoreOpp: Math.max(0, opp - 1) })} />
-          <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
-          <ScoreBtn label="＋" onClick={() => onUpdate({ scoreOpp: opp + 1 })} />
+        <div className="flex flex-col items-center gap-0">
+          <span className="text-[9px] text-violet-200 leading-none">相手チーム</span>
+          <div className="flex items-center gap-0.5">
+            <ScoreBtn label="−" onClick={() => onUpdate({ scoreOpp: Math.max(0, opp - 1) })} />
+            <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
+            <ScoreBtn label="＋" onClick={() => onUpdate({ scoreOpp: opp + 1 })} />
+          </div>
         </div>
       </div>
 
