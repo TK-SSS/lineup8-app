@@ -47,12 +47,19 @@ export default function MatchHeader({ match, onUpdate }: Props) {
 
         {/* Opponent: name input + score */}
         <div className="flex flex-col items-center gap-0.5">
-          <input
-            className="bg-violet-700 text-white text-xs font-bold text-center rounded-lg px-2 py-0.5 w-28 outline-none border border-violet-400/60 focus:border-violet-200 placeholder-violet-400 transition-colors"
-            value={match.opponent}
-            placeholder="相手チーム名"
-            onChange={e => onUpdate({ opponent: e.target.value })}
-          />
+          <div className="relative">
+            <input
+              className="bg-violet-700 text-white text-xs font-bold text-center rounded-lg px-2 py-0.5 w-28 outline-none border border-violet-400/60 focus:border-violet-200 placeholder-violet-400 transition-colors"
+              value={match.opponent}
+              placeholder="相手チーム名"
+              onChange={e => onUpdate({ opponent: e.target.value })}
+            />
+            {!match.opponent && (
+              <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-amber-400 text-violet-900 text-[10px] font-black flex items-center justify-center animate-bounce leading-none">
+                !
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreOpp: Math.max(0, opp - 1) })} />
             <span className="text-xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
