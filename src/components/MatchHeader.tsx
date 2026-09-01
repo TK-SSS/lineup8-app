@@ -88,7 +88,7 @@ export default function MatchHeader({ match, onUpdate }: Props) {
               {FORMATIONS.map(f => (
                 <button
                   key={f}
-                  className={`block w-full px-6 py-3 text-left text-sm hover:bg-violet-600 ${f === match.formation ? 'bg-violet-600 font-bold' : ''}`}
+                  className={`block w-full px-6 py-3 text-left text-sm whitespace-nowrap hover:bg-violet-600 ${f === match.formation ? 'bg-violet-600 font-bold' : ''}`}
                   onClick={() => { onUpdate({ formation: f }); setShowFormationPicker(false) }}
                 >
                   {f}
