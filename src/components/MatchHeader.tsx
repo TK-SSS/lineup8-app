@@ -21,7 +21,6 @@ function ScoreBtn({ label, onClick }: { label: string; onClick: () => void }) {
 }
 
 export default function MatchHeader({ match, onUpdate }: Props) {
-  const [editingOpponent, setEditingOpponent] = useState(false)
   const [showFormationPicker, setShowFormationPicker] = useState(false)
 
   const us = match.scoreUs ?? 0
@@ -29,11 +28,11 @@ export default function MatchHeader({ match, onUpdate }: Props) {
 
   return (
     <div className="bg-violet-600 px-3 pt-1 pb-1 text-white">
-      {/* Row 1: score + opponent + formation all in one line */}
-      <div className="flex items-center justify-between gap-1">
+      {/* Row 1: our score | vs | opponent input + their score */}
+      <div className="flex items-center justify-between gap-2">
         {/* Our score */}
         <div className="flex flex-col items-center gap-0">
-          <span className="text-[9px] text-violet-200 leading-none">自チーム</span>
+          <span className="text-[9px] text-violet-200 leading-none">仲本</span>
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreUs: Math.max(0, us - 1) })} />
             <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{us}</span>
@@ -41,32 +40,17 @@ export default function MatchHeader({ match, onUpdate }: Props) {
           </div>
         </div>
 
-        {/* Center: vs + opponent */}
-        <div className="flex-1 flex flex-col items-center min-w-0 px-1">
-          <span className="text-[10px] text-violet-300 leading-none mb-0.5">vs</span>
-          {editingOpponent ? (
-            <input
-              autoFocus
-              className="bg-violet-600 text-white text-sm font-bold text-center rounded px-2 py-0.5 w-full outline-none border border-violet-300"
-              value={match.opponent}
-              placeholder="相手チーム名"
-              onChange={e => onUpdate({ opponent: e.target.value })}
-              onBlur={() => setEditingOpponent(false)}
-              onKeyDown={e => { if (e.key === 'Enter') setEditingOpponent(false) }}
-            />
-          ) : (
-            <button
-              className="text-sm font-bold truncate max-w-full text-center leading-tight"
-              onClick={() => setEditingOpponent(true)}
-            >
-              {match.opponent || '相手チーム名'}
-            </button>
-          )}
-        </div>
+        {/* vs */}
+        <span className="text-xs text-violet-300 font-semibold">vs</span>
 
-        {/* Opponent score */}
-        <div className="flex flex-col items-center gap-0">
-          <span className="text-[9px] text-violet-200 leading-none">相手チーム</span>
+        {/* Opponent: name input + score */}
+        <div className="flex flex-col items-center gap-0.5">
+          <input
+            className="bg-violet-700 text-white text-xs font-bold text-center rounded-lg px-2 py-0.5 w-28 outline-none border border-violet-400/60 focus:border-violet-200 placeholder-violet-400 transition-colors"
+            value={match.opponent}
+            placeholder="相手チーム名"
+            onChange={e => onUpdate({ opponent: e.target.value })}
+          />
           <div className="flex items-center gap-0.5">
             <ScoreBtn label="−" onClick={() => onUpdate({ scoreOpp: Math.max(0, opp - 1) })} />
             <span className="text-2xl font-black w-8 text-center tabular-nums leading-none">{opp}</span>
