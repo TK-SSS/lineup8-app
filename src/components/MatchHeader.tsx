@@ -29,7 +29,7 @@ export default function MatchHeader({ match, onUpdate }: Props) {
   return (
     <div className="bg-violet-600 px-3 pt-1 pb-1 text-white">
       {/* Row 1: our score | vs | opponent input + their score */}
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-end justify-between gap-2">
         {/* Our score */}
         <div className="flex flex-col items-center gap-0.5">
           <div className="bg-violet-700 text-white text-xs font-bold text-center rounded-lg px-2 py-0.5 w-16 border border-violet-400/60">
