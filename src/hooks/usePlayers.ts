@@ -5,12 +5,14 @@ import { storage } from '@/lib/storage'
 
 export function usePlayers() {
   const [players, setPlayers] = useState<Player[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
   const loadComplete = useRef(false)
 
   useEffect(() => {
     storage.loadPlayers().then(data => {
       loadComplete.current = true
       setPlayers(data)
+      setIsLoaded(true)
     })
   }, [])
 
@@ -32,5 +34,5 @@ export function usePlayers() {
   const deletePlayer = (id: string) =>
     setPlayers(prev => prev.filter(p => p.id !== id))
 
-  return { players, addPlayer, updatePlayer, deletePlayer }
+  return { players, isLoaded, addPlayer, updatePlayer, deletePlayer }
 }

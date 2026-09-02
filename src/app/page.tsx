@@ -58,7 +58,7 @@ function MatchHistory({
 }
 
 export default function HomePage() {
-  const { matches, createMatch, updateMatch } = useMatches()
+  const { matches, isLoaded: matchesLoaded, createMatch, updateMatch } = useMatches()
   const { players } = usePlayers()
   const { getLineup, setPlayer, swapPositions, copyLineup, clearLineup } = useAllLineups()
 
@@ -104,6 +104,8 @@ export default function HomePage() {
     if (prev) copyLineup(prev.id, newMatch.id)
     setCurrentIndex(matches.length)
   }
+
+  if (!matchesLoaded) return null
 
   if (matches.length === 0) {
     return (

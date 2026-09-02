@@ -24,14 +24,14 @@ function MatchRow({
 
   return (
     <div className="flex items-center border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
-      <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center min-w-0">
-        <span className="text-violet-300 font-black text-base w-12 shrink-0">{formatDate(match.date)}</span>
-        <span className="text-violet-500 text-sm w-12 shrink-0">{match.time || '—'}</span>
-        <span className={`text-base font-bold w-32 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
+      <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center gap-3 min-w-0">
+        <span className="text-violet-300 font-black text-base w-10 shrink-0">{formatDate(match.date)}</span>
+        <span className="text-violet-500 text-sm w-10 shrink-0">{match.time || '—'}</span>
+        <span className={`text-base font-bold w-28 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
           {match.opponent || '未設定'}
         </span>
-        <span className="text-violet-500 text-sm w-12 shrink-0">{match.formation}</span>
-        <span className="w-14 shrink-0">
+        <span className="text-violet-500 text-sm w-10 shrink-0">{match.formation}</span>
+        <span className="w-12 shrink-0">
           {hasScore && (
             <span className="bg-violet-700 text-white font-black text-base px-2 py-0.5 rounded-lg tabular-nums">
               {us}-{opp}
@@ -55,7 +55,7 @@ function MatchRow({
 
 export default function MatchesPage() {
   const router = useRouter()
-  const { matches, createMatch, deleteMatch } = useMatches()
+  const { matches, isLoaded, createMatch, deleteMatch } = useMatches()
 
   const sorted = [...matches].reverse()
 
@@ -88,7 +88,7 @@ export default function MatchesPage() {
         </button>
       </div>
 
-      {sorted.length === 0 ? (
+      {!isLoaded ? null : sorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4">
           <div className="text-5xl">📋</div>
           <p className="text-violet-400 text-sm text-center">

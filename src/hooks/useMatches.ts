@@ -17,12 +17,14 @@ function nowStr() {
 
 export function useMatches() {
   const [matches, setMatches] = useState<Match[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
   const loadComplete = useRef(false)
 
   useEffect(() => {
     storage.loadMatches().then(data => {
       loadComplete.current = true
       setMatches(data)
+      setIsLoaded(true)
     })
   }, [])
 
@@ -55,5 +57,5 @@ export function useMatches() {
   const deleteMatch = (id: string) =>
     setMatches(prev => prev.filter(m => m.id !== id))
 
-  return { matches, createMatch, updateMatch, deleteMatch }
+  return { matches, isLoaded, createMatch, updateMatch, deleteMatch }
 }

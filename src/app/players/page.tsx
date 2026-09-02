@@ -166,9 +166,11 @@ function AddPlayerForm({ onAdd }: { onAdd: (n: number, name: string) => void }) 
 }
 
 export default function PlayersPage() {
-  const { players, addPlayer, updatePlayer, deletePlayer } = usePlayers()
+  const { players, isLoaded, addPlayer, updatePlayer, deletePlayer } = usePlayers()
 
   const sorted = [...players].sort((a, b) => a.number - b.number)
+
+  if (!isLoaded) return null
 
   return (
     <div>
