@@ -25,15 +25,15 @@ function MatchRow({
   return (
     <div className="flex items-center border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
       <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center min-w-0">
-        <span className="text-violet-300 font-black text-sm w-10 shrink-0">{formatDate(match.date)}</span>
-        <span className="text-violet-600 text-xs w-9 shrink-0">{match.time || '—'}</span>
-        <span className={`text-sm font-bold w-32 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
+        <span className="text-violet-300 font-black text-base w-12 shrink-0">{formatDate(match.date)}</span>
+        <span className="text-violet-500 text-sm w-12 shrink-0">{match.time || '—'}</span>
+        <span className={`text-base font-bold w-32 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
           {match.opponent || '未設定'}
         </span>
-        <span className="text-violet-600 text-xs w-10 shrink-0">{match.formation}</span>
-        <span className="w-12 shrink-0">
+        <span className="text-violet-500 text-sm w-12 shrink-0">{match.formation}</span>
+        <span className="w-14 shrink-0">
           {hasScore && (
-            <span className="bg-violet-700 text-white font-black text-sm px-2 py-0.5 rounded-lg tabular-nums">
+            <span className="bg-violet-700 text-white font-black text-base px-2 py-0.5 rounded-lg tabular-nums">
               {us}-{opp}
             </span>
           )}
