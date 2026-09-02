@@ -10,6 +10,7 @@ function loadAll(): Promise<AllData> {
     _pending = fetch('/api/data')
       .then(r => r.json())
       .catch(() => ({ players: [], matches: [], lineups: {} }))
+      .finally(() => { _pending = null })
   }
   return _pending
 }

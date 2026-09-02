@@ -5,15 +5,19 @@ import { storage } from '@/lib/storage'
 
 export function usePlayers() {
   const [players, setPlayers] = useState<Player[]>([])
-  const initialized = useRef(false)
+  const loadComplete = useRef(false)
 
   useEffect(() => {
-    storage.loadPlayers().then(setPlayers)
+    storage.loadPlayers().then(data => {
+      loadComplete.current = true
+      setPlayers(data)
+    })
   }, [])
 
   useEffect(() => {
-    if (!initialized.current) { initialized.current = true; return }
-    storage.savePlayers(players)
+    if (!loadComplete.current) return
+    const t = setTimeout(() => storage.savePlayers(players), 400)
+    return () => clearTimeout(t)
   }, [players])
 
   const addPlayer = (number: number, name: string) =>

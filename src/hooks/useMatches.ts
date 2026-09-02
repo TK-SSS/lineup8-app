@@ -17,15 +17,19 @@ function nowStr() {
 
 export function useMatches() {
   const [matches, setMatches] = useState<Match[]>([])
-  const initialized = useRef(false)
+  const loadComplete = useRef(false)
 
   useEffect(() => {
-    storage.loadMatches().then(setMatches)
+    storage.loadMatches().then(data => {
+      loadComplete.current = true
+      setMatches(data)
+    })
   }, [])
 
   useEffect(() => {
-    if (!initialized.current) { initialized.current = true; return }
-    storage.saveMatches(matches)
+    if (!loadComplete.current) return
+    const t = setTimeout(() => storage.saveMatches(matches), 400)
+    return () => clearTimeout(t)
   }, [matches])
 
   const createMatch = (formation: Formation = '3-3-1'): Match => {
@@ -41,8 +45,12 @@ export function useMatches() {
     return m
   }
 
-  const updateMatch = (id: string, patch: Partial<Match>) =>
-    setMatches(prev => prev.map(m => (m.id === id ? { ...m, ...patch } : m)))
+  const updateMatch = (id: string, patch: Partial<Match> | ((m: Match) => Partial<Match>)) =>
+    setMatches(prev => prev.map(m => {
+      if (m.id !== id) return m
+      const p = typeof patch === 'function' ? patch(m) : patch
+      return { ...m, ...p }
+    }))
 
   const deleteMatch = (id: string) =>
     setMatches(prev => prev.filter(m => m.id !== id))

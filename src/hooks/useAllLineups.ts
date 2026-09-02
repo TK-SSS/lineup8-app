@@ -5,15 +5,19 @@ import { storage } from '@/lib/storage'
 
 export function useAllLineups() {
   const [all, setAll] = useState<Record<string, LineupMap>>({})
-  const initialized = useRef(false)
+  const loadComplete = useRef(false)
 
   useEffect(() => {
-    storage.loadLineups().then(setAll)
+    storage.loadLineups().then(data => {
+      loadComplete.current = true
+      setAll(data)
+    })
   }, [])
 
   useEffect(() => {
-    if (!initialized.current) { initialized.current = true; return }
-    storage.saveLineups(all)
+    if (!loadComplete.current) return
+    const t = setTimeout(() => storage.saveLineups(all), 400)
+    return () => clearTimeout(t)
   }, [all])
 
   const getLineup = (matchId: string): LineupMap => all[matchId] ?? {}

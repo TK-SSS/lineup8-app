@@ -139,17 +139,15 @@ export default function HomePage() {
 
   function handleSetPlayer(playerId: string, toPos: string | null) {
     setPlayer(match.id, playerId, toPos)
-    if (toPos !== null) {
-      const player = players.find(p => p.id === playerId)
-      if (player) {
-        updateMatch(match.id, {
-          playerSnapshot: {
-            ...match.playerSnapshot,
-            [player.id]: { name: player.name, number: player.number },
-          },
-        })
-      }
-    }
+    if (toPos === null) return
+    const player = players.find(p => p.id === playerId)
+    if (!player) return
+    updateMatch(match.id, m => ({
+      playerSnapshot: {
+        ...(m.playerSnapshot ?? {}),
+        [player.id]: { name: player.name, number: player.number },
+      },
+    }))
   }
 
   return (
