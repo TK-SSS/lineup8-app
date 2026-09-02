@@ -8,6 +8,10 @@ export function useAllLineups() {
   const loadComplete = useRef(false)
 
   useEffect(() => {
+    // Phase 1: show cached data instantly (no server round-trip)
+    const cached = storage.loadLineupsSync()
+    if (Object.keys(cached).length > 0) setAll(cached)
+    // Phase 2: sync with server in background
     storage.loadLineups().then(data => {
       loadComplete.current = true
       setAll(data)

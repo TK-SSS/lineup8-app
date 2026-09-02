@@ -9,6 +9,13 @@ export function usePlayers() {
   const loadComplete = useRef(false)
 
   useEffect(() => {
+    // Phase 1: show cached data instantly (no server round-trip)
+    const cached = storage.loadPlayersSync()
+    if (cached.length > 0) {
+      setPlayers(cached)
+      setIsLoaded(true)
+    }
+    // Phase 2: sync with server in background
     storage.loadPlayers().then(data => {
       loadComplete.current = true
       setPlayers(data)

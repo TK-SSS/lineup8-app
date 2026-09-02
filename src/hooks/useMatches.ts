@@ -21,6 +21,13 @@ export function useMatches() {
   const loadComplete = useRef(false)
 
   useEffect(() => {
+    // Phase 1: show cached data instantly (no server round-trip)
+    const cached = storage.loadMatchesSync()
+    if (cached.length > 0) {
+      setMatches(cached)
+      setIsLoaded(true)
+    }
+    // Phase 2: sync with server in background
     storage.loadMatches().then(data => {
       loadComplete.current = true
       setMatches(data)
