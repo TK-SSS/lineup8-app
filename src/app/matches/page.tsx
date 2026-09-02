@@ -23,24 +23,26 @@ function MatchRow({
   const opp = match.scoreOpp ?? 0
 
   return (
-    <div className="flex items-stretch border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
-      <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center gap-2 min-w-0">
-        <span className="text-violet-300 font-black text-sm whitespace-nowrap">{formatDate(match.date)}</span>
-        <span className="text-violet-600 text-xs whitespace-nowrap">{match.time || '—'}</span>
-        <span className={`text-sm font-bold whitespace-nowrap ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
+    <div className="flex items-center border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
+      <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center min-w-0">
+        <span className="text-violet-300 font-black text-sm w-10 shrink-0">{formatDate(match.date)}</span>
+        <span className="text-violet-600 text-xs w-9 shrink-0">{match.time || '—'}</span>
+        <span className={`text-sm font-bold w-32 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
           {match.opponent || '未設定'}
         </span>
-        <span className="text-violet-600 text-xs whitespace-nowrap">{match.formation}</span>
-        {hasScore && (
-          <span className="bg-violet-700 text-white font-black text-sm px-2 py-0.5 rounded-lg tabular-nums whitespace-nowrap">
-            {us}-{opp}
-          </span>
-        )}
+        <span className="text-violet-600 text-xs w-10 shrink-0">{match.formation}</span>
+        <span className="w-12 shrink-0">
+          {hasScore && (
+            <span className="bg-violet-700 text-white font-black text-sm px-2 py-0.5 rounded-lg tabular-nums">
+              {us}-{opp}
+            </span>
+          )}
+        </span>
       </button>
 
       <button
         onClick={onDelete}
-        className="px-3 flex items-center text-violet-800 active:text-red-400 active:bg-red-900/20 transition-colors shrink-0"
+        className="px-3 py-3 flex items-center text-violet-800 active:text-red-400 active:bg-red-900/20 transition-colors shrink-0"
         aria-label="削除"
       >
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
