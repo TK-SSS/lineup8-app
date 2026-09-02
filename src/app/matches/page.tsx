@@ -18,41 +18,46 @@ function MatchRow({
   onSelect: () => void
   onDelete: () => void
 }) {
+  const hasScore = match.scoreUs != null || match.scoreOpp != null
+  const us = match.scoreUs ?? 0
+  const opp = match.scoreOpp ?? 0
+
   return (
-    <div className="flex items-stretch border-b border-violet-900/60">
-      <button
-        onClick={onSelect}
-        className="flex-1 px-4 py-4 text-left active:bg-violet-900/40"
-      >
-        <div className="flex items-center gap-3">
-          <div className="shrink-0 text-center">
-            <div className="text-white font-bold text-lg leading-none">{formatDate(match.date)}</div>
-            <div className="text-violet-400 text-xs mt-0.5">{match.time || '—'}</div>
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-white font-bold text-base truncate">
-              VS {match.opponent || '（未設定）'}
-            </div>
-            <div className="text-violet-400 text-sm mt-0.5 flex items-center gap-2">
-              <span>{match.formation}</span>
-              {(match.scoreUs != null || match.scoreOpp != null) && (
-                <span className="text-violet-200 font-bold">
-                  {match.scoreUs ?? 0} — {match.scoreOpp ?? 0}
-                </span>
-              )}
-            </div>
-          </div>
-          <svg className="w-4 h-4 text-violet-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-            <path d="M9 18l6-6-6-6" />
-          </svg>
+    <div className="flex items-stretch border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
+      <button onClick={onSelect} className="flex-1 px-4 py-3 text-left flex items-center gap-3">
+        {/* Date / time */}
+        <div className="shrink-0 w-12 text-center">
+          <div className="text-white font-black text-base leading-none">{formatDate(match.date)}</div>
+          <div className="text-violet-500 text-[11px] mt-0.5">{match.time || '—'}</div>
         </div>
+
+        {/* VS + formation */}
+        <div className="flex-1 min-w-0">
+          <div className={`font-bold text-base leading-tight truncate ${match.opponent ? 'text-white' : 'text-violet-500 italic'}`}>
+            VS {match.opponent || '未設定'}
+          </div>
+          <div className="text-violet-500 text-xs mt-0.5">{match.formation}</div>
+        </div>
+
+        {/* Score */}
+        {hasScore ? (
+          <div className="shrink-0 text-right">
+            <div className="text-white font-black text-xl tabular-nums leading-none">
+              {us}<span className="text-violet-500 text-sm mx-1">-</span>{opp}
+            </div>
+          </div>
+        ) : (
+          <div className="shrink-0 w-10" />
+        )}
       </button>
+
+      {/* Delete */}
       <button
         onClick={onDelete}
-        className="px-4 flex items-center text-violet-700 active:text-red-400 active:bg-red-900/20 transition-colors"
+        className="px-3 flex items-center text-violet-800 active:text-red-400 active:bg-red-900/20 transition-colors"
         aria-label="削除"
       >
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" />
         </svg>
       </button>
