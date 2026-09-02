@@ -24,37 +24,23 @@ function MatchRow({
 
   return (
     <div className="flex items-stretch border-b border-violet-900/40 active:bg-violet-900/30 transition-colors">
-      <button onClick={onSelect} className="flex-1 px-4 py-3 text-left flex items-center gap-3">
-        {/* Date / time */}
-        <div className="shrink-0 w-12 text-center">
-          <div className="text-white font-black text-base leading-none">{formatDate(match.date)}</div>
-          <div className="text-violet-500 text-[11px] mt-0.5">{match.time || '—'}</div>
-        </div>
-
-        {/* VS + formation */}
-        <div className="flex-1 min-w-0">
-          <div className={`font-bold text-base leading-tight truncate ${match.opponent ? 'text-white' : 'text-violet-500 italic'}`}>
-            VS {match.opponent || '未設定'}
-          </div>
-          <div className="text-violet-500 text-xs mt-0.5">{match.formation}</div>
-        </div>
-
-        {/* Score */}
-        {hasScore ? (
-          <div className="shrink-0 text-right">
-            <div className="text-white font-black text-xl tabular-nums leading-none">
-              {us}<span className="text-violet-500 text-sm mx-1">-</span>{opp}
-            </div>
-          </div>
-        ) : (
-          <div className="shrink-0 w-10" />
+      <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center gap-2 min-w-0">
+        <span className="text-violet-300 font-black text-sm whitespace-nowrap">{formatDate(match.date)}</span>
+        <span className="text-violet-600 text-xs whitespace-nowrap">{match.time || '—'}</span>
+        <span className={`text-sm font-bold whitespace-nowrap ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
+          {match.opponent || '未設定'}
+        </span>
+        <span className="text-violet-600 text-xs whitespace-nowrap">{match.formation}</span>
+        {hasScore && (
+          <span className="bg-violet-700 text-white font-black text-sm px-2 py-0.5 rounded-lg tabular-nums whitespace-nowrap">
+            {us}-{opp}
+          </span>
         )}
       </button>
 
-      {/* Delete */}
       <button
         onClick={onDelete}
-        className="px-3 flex items-center text-violet-800 active:text-red-400 active:bg-red-900/20 transition-colors"
+        className="px-3 flex items-center text-violet-800 active:text-red-400 active:bg-red-900/20 transition-colors shrink-0"
         aria-label="削除"
       >
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -90,11 +76,11 @@ export default function MatchesPage() {
   return (
     <div className="min-h-full bg-black">
       {/* Header */}
-      <div className="bg-violet-600 px-4 py-4 flex items-center justify-between">
-        <h1 className="text-white font-bold text-xl">試合リスト</h1>
+      <div className="bg-violet-600 px-4 py-4 flex items-center">
+        <h1 className="flex-1 text-white font-bold text-xl text-center">試合リスト</h1>
         <button
           onClick={handleNew}
-          className="bg-violet-500 hover:bg-violet-400 active:scale-95 text-white font-bold text-sm px-4 py-2 rounded-xl transition-all"
+          className="bg-violet-500 hover:bg-violet-400 active:scale-95 text-white font-bold text-sm px-4 py-2 rounded-xl transition-all shrink-0"
         >
           ＋ 新規作成
         </button>
