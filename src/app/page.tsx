@@ -105,7 +105,9 @@ export default function HomePage() {
     setCurrentIndex(matches.length)
   }
 
-  if (!matchesLoaded) return null
+  if (!matchesLoaded) return (
+    <div className="bg-violet-600 px-3 pt-1 pb-1" style={{ minHeight: 56 }} />
+  )
 
   if (matches.length === 0) {
     return (

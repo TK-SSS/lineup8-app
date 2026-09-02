@@ -170,32 +170,32 @@ export default function PlayersPage() {
 
   const sorted = [...players].sort((a, b) => a.number - b.number)
 
-  if (!isLoaded) return null
-
   return (
     <div>
       <div className="bg-violet-600 px-4 py-4 flex items-center justify-between">
         <h1 className="text-white font-bold text-xl">選手管理</h1>
-        <span className="text-sm text-violet-200">{players.length}人登録中</span>
+        <span className="text-sm text-violet-200">{isLoaded ? `${players.length}人登録中` : ''}</span>
       </div>
-      <div className="px-3 pt-4 pb-4">
-        <div className="flex flex-col gap-2 mb-4">
-          {sorted.length === 0 && (
-            <p className="text-violet-500 text-sm text-center py-8">
-              選手が登録されていません
-            </p>
-          )}
-          {sorted.map(p => (
-            <PlayerRow
-              key={p.id}
-              player={p}
-              onUpdate={patch => updatePlayer(p.id, patch)}
-              onDelete={() => deletePlayer(p.id)}
-            />
-          ))}
+      {isLoaded && (
+        <div className="px-3 pt-4 pb-4">
+          <div className="flex flex-col gap-2 mb-4">
+            {sorted.length === 0 && (
+              <p className="text-violet-500 text-sm text-center py-8">
+                選手が登録されていません
+              </p>
+            )}
+            {sorted.map(p => (
+              <PlayerRow
+                key={p.id}
+                player={p}
+                onUpdate={patch => updatePlayer(p.id, patch)}
+                onDelete={() => deletePlayer(p.id)}
+              />
+            ))}
+          </div>
+          <AddPlayerForm onAdd={addPlayer} />
         </div>
-        <AddPlayerForm onAdd={addPlayer} />
-      </div>
+      )}
     </div>
   )
 }

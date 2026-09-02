@@ -88,7 +88,9 @@ export default function MatchesPage() {
         </button>
       </div>
 
-      {!isLoaded ? null : sorted.length === 0 ? (
+      {!isLoaded ? (
+        <div className="flex-1" />
+      ) : sorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4">
           <div className="text-5xl">📋</div>
           <p className="text-violet-400 text-sm text-center">
