@@ -89,6 +89,7 @@ export default function HomePage() {
   // Swipe detection (still works alongside buttons)
   const touchStartX = useRef<number | null>(null)
   const touchStartY = useRef<number | null>(null)
+  const isDragging = useRef(false)
 
   function handleTouchStart(e: React.TouchEvent) {
     touchStartX.current = e.touches[0].clientX
@@ -101,6 +102,7 @@ export default function HomePage() {
     const dy = e.changedTouches[0].clientY - (touchStartY.current ?? 0)
     touchStartX.current = null
     touchStartY.current = null
+    if (isDragging.current) return  // DnD中はswipe無効
     if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx)) return
     if (dx < 0) handleNewMatch()
     else if (currentIndex > 0) navigate(currentIndex - 1, 'right')
@@ -192,6 +194,7 @@ export default function HomePage() {
           onNext={() => navigate(Math.min(matches.length - 1, currentIndex + 1), 'left')}
           onNew={handleNewMatch}
           onOpenHistory={() => setHistoryOpen(true)}
+          onDragStateChange={active => { isDragging.current = active }}
         />
       </div>
     </>
