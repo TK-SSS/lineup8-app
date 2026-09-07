@@ -176,7 +176,7 @@ export default function HomePage() {
 
       <div
         key={animKey}
-        className={`min-h-full ${animDir === 'left' ? 'slide-from-right' : 'slide-from-left'}`}
+        className={`min-h-full ${animKey > 0 ? (animDir === 'left' ? 'slide-from-right' : 'slide-from-left') : ''}`}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
