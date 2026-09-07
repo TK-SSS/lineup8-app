@@ -50,6 +50,7 @@ export default function LineupScreen({
 }: Props) {
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null)
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
+  const [swappedPositions, setSwappedPositions] = useState<Set<string>>(new Set())
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -97,6 +98,8 @@ export default function LineupScreen({
         setPendingSub({ benchPlayerId: playerId, targetPos: destId })
       } else if (sourcePos && existingId && existingId !== playerId) {
         onSwapPositions(sourcePos, destId)
+        setSwappedPositions(new Set([sourcePos, destId]))
+        setTimeout(() => setSwappedPositions(new Set()), 3000)
       } else {
         onSetPlayer(playerId, destId)
       }
@@ -163,7 +166,7 @@ export default function LineupScreen({
         </button>
       </div>
 
-      <CourtDisplay positions={positions} lineup={lineup} players={players} subInMap={subInMap} />
+      <CourtDisplay positions={positions} lineup={lineup} players={players} subInMap={subInMap} swappedPositions={swappedPositions} />
       <BenchArea players={benchPlayers} subOutMap={subOutMap} />
 
       {/* Bottom action row */}

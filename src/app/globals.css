@@ -28,3 +28,14 @@ body {
 body {
   overscroll-behavior-y: contain;
 }
+
+@keyframes slideInFromRight {
+  from { transform: translateX(32px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes slideInFromLeft {
+  from { transform: translateX(-32px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+.slide-from-right { animation: slideInFromRight 0.22s ease-out; }
+.slide-from-left  { animation: slideInFromLeft  0.22s ease-out; }

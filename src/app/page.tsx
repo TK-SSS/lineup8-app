@@ -64,6 +64,14 @@ export default function HomePage() {
 
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
   const [historyOpen, setHistoryOpen] = useState(false)
+  const [animKey, setAnimKey] = useState(0)
+  const [animDir, setAnimDir] = useState<'left' | 'right'>('left')
+
+  function navigate(newIndex: number, dir: 'left' | 'right') {
+    setAnimDir(dir)
+    setAnimKey(k => k + 1)
+    setCurrentIndex(newIndex)
+  }
 
   useEffect(() => {
     if (matches.length > 0 && currentIndex === -1) {
@@ -95,14 +103,13 @@ export default function HomePage() {
     touchStartY.current = null
     if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx)) return
     if (dx < 0) handleNewMatch()
-    else if (currentIndex > 0) setCurrentIndex(i => i - 1)
+    else if (currentIndex > 0) navigate(currentIndex - 1, 'right')
   }
 
   function handleNewMatch() {
-    const prev = matches[currentIndex]
-    const newMatch: Match = createMatch(prev?.formation ?? '3-3-1')
-    if (prev) copyLineup(prev.id, newMatch.id)
-    setCurrentIndex(matches.length)
+    const newMatch: Match = createMatch(matches[currentIndex]?.formation ?? '3-3-1')
+    navigate(matches.length, 'left')
+    void newMatch
   }
 
   if (!matchesLoaded) return (
@@ -160,13 +167,14 @@ export default function HomePage() {
         <MatchHistory
           matches={matches}
           currentId={match.id}
-          onSelect={setCurrentIndex}
+          onSelect={i => navigate(i, i >= currentIndex ? 'left' : 'right')}
           onClose={() => setHistoryOpen(false)}
         />
       )}
 
       <div
-        className="min-h-full"
+        key={animKey}
+        className={`min-h-full ${animDir === 'left' ? 'slide-from-right' : 'slide-from-left'}`}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -180,8 +188,8 @@ export default function HomePage() {
           onSetPlayer={handleSetPlayer}
           onSwapPositions={(p1, p2) => swapPositions(match.id, p1, p2)}
           onClear={() => clearLineup(match.id)}
-          onPrev={() => setCurrentIndex(i => Math.max(0, i - 1))}
-          onNext={() => setCurrentIndex(i => Math.min(matches.length - 1, i + 1))}
+          onPrev={() => navigate(Math.max(0, currentIndex - 1), 'right')}
+          onNext={() => navigate(Math.min(matches.length - 1, currentIndex + 1), 'left')}
           onNew={handleNewMatch}
           onOpenHistory={() => setHistoryOpen(true)}
         />

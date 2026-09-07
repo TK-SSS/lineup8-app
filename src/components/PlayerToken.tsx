@@ -9,9 +9,10 @@ interface Props {
   isOver?: boolean
   subFromNum?: number  // on court: subbed in for #N
   subToNum?: number    // on bench: was subbed out for #N
+  isSwapped?: boolean  // recently swapped — flash white border
 }
 
-export default function PlayerToken({ player, position, isOver, subFromNum, subToNum }: Props) {
+export default function PlayerToken({ player, position, isOver, subFromNum, subToNum, isSwapped }: Props) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: player.id,
     data: { position },
@@ -44,10 +45,10 @@ export default function PlayerToken({ player, position, isOver, subFromNum, subT
       ) : (
         /* Court: circle */
         <div className="flex flex-col items-center">
-          <div className={`w-16 h-16 rounded-full border-2 shadow-lg flex flex-col items-center justify-center ${
-            subFromNum !== undefined
-              ? 'bg-emerald-600 border-emerald-300/80'
-              : 'bg-violet-500 border-violet-300/70'
+          <div className={`w-16 h-16 rounded-full border-2 shadow-lg flex flex-col items-center justify-center transition-[border-color] duration-500 ${
+            subFromNum !== undefined ? 'bg-emerald-600' : 'bg-violet-500'
+          } ${
+            isSwapped ? 'border-white' : subFromNum !== undefined ? 'border-emerald-300/80' : 'border-violet-300/70'
           }`}>
             <span className="text-xl font-black leading-none text-white">{player.number}</span>
             <span className="text-xs font-bold leading-tight text-white max-w-[58px] truncate text-center">

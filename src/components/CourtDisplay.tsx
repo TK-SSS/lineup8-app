@@ -8,9 +8,10 @@ interface SlotProps {
   pos: PositionDef
   player: Player | undefined
   subFromNum?: number
+  isSwapped?: boolean
 }
 
-function PositionSlot({ pos, player, subFromNum }: SlotProps) {
+function PositionSlot({ pos, player, subFromNum, isSwapped }: SlotProps) {
   const { setNodeRef, isOver } = useDroppable({ id: pos.key })
   const isEmpty = !player
 
@@ -30,7 +31,7 @@ function PositionSlot({ pos, player, subFromNum }: SlotProps) {
         </div>
       ) : (
         <>
-          <PlayerToken player={player} position={pos.key} isOver={isOver} subFromNum={subFromNum} />
+          <PlayerToken player={player} position={pos.key} isOver={isOver} subFromNum={subFromNum} isSwapped={isSwapped} />
           <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0.5 text-white/30 text-[11px] font-bold tracking-wide pointer-events-none select-none">
             {pos.label}
           </div>
@@ -45,9 +46,10 @@ interface Props {
   lineup: LineupMap
   players: Player[]
   subInMap?: Map<string, number>
+  swappedPositions?: Set<string>
 }
 
-export default function CourtDisplay({ positions, lineup, players, subInMap }: Props) {
+export default function CourtDisplay({ positions, lineup, players, subInMap, swappedPositions }: Props) {
   const playerMap = new Map(players.map(p => [p.id, p]))
 
   return (
@@ -74,6 +76,7 @@ export default function CourtDisplay({ positions, lineup, players, subInMap }: P
               pos={pos}
               player={playerMap.get(playerId ?? '')}
               subFromNum={playerId ? subInMap?.get(playerId) : undefined}
+              isSwapped={swappedPositions?.has(pos.key)}
             />
           )
         })}
