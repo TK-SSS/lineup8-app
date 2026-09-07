@@ -31,7 +31,6 @@ interface Props {
   onNext: () => void
   onNew: () => void
   onOpenHistory: () => void
-  onDragStateChange?: (dragging: boolean) => void
 }
 
 export default function LineupScreen({
@@ -48,7 +47,6 @@ export default function LineupScreen({
   onNext,
   onNew,
   onOpenHistory,
-  onDragStateChange,
 }: Props) {
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null)
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
@@ -81,13 +79,10 @@ export default function LineupScreen({
 
   function handleDragStart(e: DragStartEvent) {
     setActivePlayerId(e.active.id as string)
-    onDragStateChange?.(true)
   }
 
   function handleDragEnd(e: DragEndEvent) {
     setActivePlayerId(null)
-    // Defer so the touchend bubble to the swipe wrapper still sees isDragging=true
-    setTimeout(() => onDragStateChange?.(false), 50)
     const { active, over } = e
     if (!over) return
 

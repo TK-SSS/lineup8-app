@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import type { Match } from '@/types'
 import { useMatches } from '@/hooks/useMatches'
 import { usePlayers } from '@/hooks/usePlayers'
@@ -86,28 +86,6 @@ export default function HomePage() {
     }
   }, [matches, currentIndex])
 
-  // Swipe detection (still works alongside buttons)
-  const touchStartX = useRef<number | null>(null)
-  const touchStartY = useRef<number | null>(null)
-  const isDragging = useRef(false)
-
-  function handleTouchStart(e: React.TouchEvent) {
-    touchStartX.current = e.touches[0].clientX
-    touchStartY.current = e.touches[0].clientY
-  }
-
-  function handleTouchEnd(e: React.TouchEvent) {
-    if (touchStartX.current === null) return
-    const dx = e.changedTouches[0].clientX - touchStartX.current
-    const dy = e.changedTouches[0].clientY - (touchStartY.current ?? 0)
-    touchStartX.current = null
-    touchStartY.current = null
-    if (isDragging.current) return  // DnD中はswipe無効
-    if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx)) return
-    if (dx < 0) handleNewMatch()
-    else if (currentIndex > 0) navigate(currentIndex - 1, 'right')
-  }
-
   function handleNewMatch() {
     const newMatch: Match = createMatch(matches[currentIndex]?.formation ?? '3-3-1')
     navigate(matches.length, 'left')
@@ -177,8 +155,6 @@ export default function HomePage() {
       <div
         key={animKey}
         className={`min-h-full ${animKey > 0 ? (animDir === 'left' ? 'slide-from-right' : 'slide-from-left') : ''}`}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
       >
         <LineupScreen
           match={match}
@@ -194,7 +170,6 @@ export default function HomePage() {
           onNext={() => navigate(Math.min(matches.length - 1, currentIndex + 1), 'left')}
           onNew={handleNewMatch}
           onOpenHistory={() => setHistoryOpen(true)}
-          onDragStateChange={active => { isDragging.current = active }}
         />
       </div>
     </>
