@@ -130,7 +130,7 @@ export default function LineupScreen({
         <button
           onClick={onPrev}
           disabled={matchIndex === 0}
-          className="w-9 h-9 flex items-center justify-center rounded-full text-violet-400 disabled:opacity-20 active:bg-violet-900/40 text-xl"
+          className="w-12 h-12 flex items-center justify-center rounded-full text-violet-400 disabled:opacity-20 active:bg-violet-900/40 text-3xl"
         >
           ‹
         </button>
@@ -153,7 +153,7 @@ export default function LineupScreen({
         <button
           onClick={onNext}
           disabled={matchIndex === totalMatches - 1}
-          className="w-9 h-9 flex items-center justify-center rounded-full text-violet-400 disabled:opacity-20 active:bg-violet-900/40 text-xl"
+          className="w-12 h-12 flex items-center justify-center rounded-full text-violet-400 disabled:opacity-20 active:bg-violet-900/40 text-3xl"
         >
           ›
         </button>
