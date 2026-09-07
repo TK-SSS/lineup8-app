@@ -86,7 +86,8 @@ export default function LineupScreen({
 
   function handleDragEnd(e: DragEndEvent) {
     setActivePlayerId(null)
-    onDragStateChange?.(false)
+    // Defer so the touchend bubble to the swipe wrapper still sees isDragging=true
+    setTimeout(() => onDragStateChange?.(false), 50)
     const { active, over } = e
     if (!over) return
 
