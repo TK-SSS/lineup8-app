@@ -30,7 +30,6 @@ interface Props {
   onPrev: () => void
   onNext: () => void
   onNew: () => void
-  onOpenHistory: () => void
 }
 
 export default function LineupScreen({
@@ -46,7 +45,6 @@ export default function LineupScreen({
   onPrev,
   onNext,
   onNew,
-  onOpenHistory,
 }: Props) {
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null)
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
@@ -135,10 +133,7 @@ export default function LineupScreen({
           ‹
         </button>
 
-        <button
-          onClick={onOpenHistory}
-          className="flex items-center gap-1.5 px-3 py-1 rounded-full active:bg-violet-900/40"
-        >
+        <div className="flex items-center gap-1.5 px-3 py-1">
           {Array.from({ length: Math.min(totalMatches, 7) }).map((_, i) => (
             <div
               key={i}
@@ -148,7 +143,7 @@ export default function LineupScreen({
             />
           ))}
           {totalMatches > 7 && <span className="text-violet-500 text-xs ml-1">…</span>}
-        </button>
+        </div>
 
         <button
           onClick={onNext}

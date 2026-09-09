@@ -6,64 +6,12 @@ import { usePlayers } from '@/hooks/usePlayers'
 import { useAllLineups } from '@/hooks/useAllLineups'
 import LineupScreen from '@/components/LineupScreen'
 
-function MatchHistory({
-  matches,
-  currentId,
-  onSelect,
-  onClose,
-}: {
-  matches: Match[]
-  currentId: string
-  onSelect: (index: number) => void
-  onClose: () => void
-}) {
-  const items = [...matches].map((m, i) => ({ m, i })).reverse()
-
-  return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-black">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-violet-700 bg-violet-600">
-        <h2 className="text-white font-bold text-lg">試合履歴</h2>
-        <button onClick={onClose} className="text-white text-2xl w-9 h-9 flex items-center justify-center">✕</button>
-      </div>
-      <div className="flex-1 overflow-y-auto">
-        {items.length === 0 && (
-          <p className="text-violet-500 text-center py-12">試合がありません</p>
-        )}
-        {items.map(({ m, i }) => (
-          <button
-            key={m.id}
-            onClick={() => { onSelect(i); onClose() }}
-            className={`w-full px-4 py-4 text-left border-b border-violet-900/60 flex items-center justify-between active:bg-violet-900/40 ${
-              m.id === currentId ? 'bg-violet-900/50' : ''
-            }`}
-          >
-            <div>
-              <div className="text-white font-bold text-base">
-                {m.date}　{m.time}
-              </div>
-              <div className="text-violet-300 text-sm mt-0.5">
-                VS {m.opponent || '（未設定）'}　／　{m.formation}
-              </div>
-            </div>
-            {m.id === currentId && (
-              <span className="text-violet-400 text-xs font-semibold border border-violet-600 rounded-full px-2 py-0.5 shrink-0">
-                表示中
-              </span>
-            )}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export default function HomePage() {
   const { matches, isLoaded: matchesLoaded, createMatch, updateMatch } = useMatches()
   const { players } = usePlayers()
   const { getLineup, setPlayer, swapPositions, copyLineup, clearLineup } = useAllLineups()
 
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
-  const [historyOpen, setHistoryOpen] = useState(false)
   const [animKey, setAnimKey] = useState(0)
   const [animDir, setAnimDir] = useState<'left' | 'right'>('left')
 
@@ -142,36 +90,24 @@ export default function HomePage() {
   }
 
   return (
-    <>
-      {historyOpen && (
-        <MatchHistory
-          matches={matches}
-          currentId={match.id}
-          onSelect={i => navigate(i, i >= currentIndex ? 'left' : 'right')}
-          onClose={() => setHistoryOpen(false)}
-        />
-      )}
-
-      <div
-        key={animKey}
-        className={`min-h-full ${animKey > 0 ? (animDir === 'left' ? 'slide-from-right' : 'slide-from-left') : ''}`}
-      >
-        <LineupScreen
-          match={match}
-          lineup={lineup}
-          players={resolvedPlayers}
-          matchIndex={currentIndex}
-          totalMatches={matches.length}
-          onUpdateMatch={patch => updateMatch(match.id, patch)}
-          onSetPlayer={handleSetPlayer}
-          onSwapPositions={(p1, p2) => swapPositions(match.id, p1, p2)}
-          onClear={() => clearLineup(match.id)}
-          onPrev={() => navigate(Math.max(0, currentIndex - 1), 'right')}
-          onNext={() => navigate(Math.min(matches.length - 1, currentIndex + 1), 'left')}
-          onNew={handleNewMatch}
-          onOpenHistory={() => setHistoryOpen(true)}
-        />
-      </div>
-    </>
+    <div
+      key={animKey}
+      className={`min-h-full ${animKey > 0 ? (animDir === 'left' ? 'slide-from-right' : 'slide-from-left') : ''}`}
+    >
+      <LineupScreen
+        match={match}
+        lineup={lineup}
+        players={resolvedPlayers}
+        matchIndex={currentIndex}
+        totalMatches={matches.length}
+        onUpdateMatch={patch => updateMatch(match.id, patch)}
+        onSetPlayer={handleSetPlayer}
+        onSwapPositions={(p1, p2) => swapPositions(match.id, p1, p2)}
+        onClear={() => clearLineup(match.id)}
+        onPrev={() => navigate(Math.max(0, currentIndex - 1), 'right')}
+        onNext={() => navigate(Math.min(matches.length - 1, currentIndex + 1), 'left')}
+        onNew={handleNewMatch}
+      />
+    </div>
   )
 }
