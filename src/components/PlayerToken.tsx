@@ -45,13 +45,13 @@ export default function PlayerToken({ player, position, isOver, subFromNum, subT
       ) : (
         /* Court: circle */
         <div className="flex flex-col items-center">
-          <div className={`w-16 h-16 rounded-full border-2 shadow-lg flex flex-col items-center justify-center transition-[border-color] duration-500 ${
+          <div className={`w-13 h-13 rounded-full border-2 shadow-lg flex flex-col items-center justify-center transition-[border-color] duration-500 ${
             subFromNum !== undefined ? 'bg-emerald-600' : 'bg-violet-500'
           } ${
             isSwapped ? 'border-white' : subFromNum !== undefined ? 'border-emerald-300/80' : 'border-violet-300/70'
           }`}>
-            <span className="text-xl font-black leading-none text-white">{player.number}</span>
-            <span className="text-xs font-bold leading-tight text-white max-w-[58px] truncate text-center">
+            <span className="text-base font-black leading-none text-white">{player.number}</span>
+            <span className="text-[10px] font-bold leading-tight text-white max-w-[46px] truncate text-center">
               {player.name}
             </span>
           </div>
