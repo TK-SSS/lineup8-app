@@ -30,7 +30,7 @@ function MatchRow({
         <span className={`text-base font-bold w-28 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
           {match.opponent || '未設定'}
         </span>
-        <span className="text-violet-500 text-sm w-10 shrink-0">{match.formation}</span>
+        <span className="text-violet-500 text-sm w-16 shrink-0 whitespace-nowrap">{match.formation}</span>
         <span className="w-12 shrink-0">
           {hasScore && (
             <span className="bg-violet-700 text-white font-black text-base px-2 py-0.5 rounded-lg tabular-nums">
