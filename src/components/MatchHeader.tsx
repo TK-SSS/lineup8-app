@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import type { Match, Formation } from '@/types'
 
-const FORMATIONS: Formation[] = ['3-3-1', '2-3-2', '3-2-2', '2-4-1']
+const FORMATIONS: Formation[] = ['3-3-1', '2-3-2', '3-2-2', '2-4-1', '3-1-2-1', '3-2-1-1', '2-1-3-1']
 
 interface Props {
   match: Match

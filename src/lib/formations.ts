@@ -50,6 +50,36 @@ export const FORMATIONS: Record<Formation, PositionDef[]> = {
     { key: 'DF-R',  label: 'DF', x: 67, y: 63 },
     { key: 'GK',    label: 'GK', x: 50, y: 88 },
   ],
+  '3-1-2-1': [
+    { key: 'FW',    label: 'FW', x: 50, y: 10 },
+    { key: 'MF-L',  label: 'MF', x: 30, y: 30 },
+    { key: 'MF-R',  label: 'MF', x: 70, y: 30 },
+    { key: 'DM',    label: 'MF', x: 50, y: 52 },
+    { key: 'DF-L',  label: 'DF', x: 18, y: 72 },
+    { key: 'DF-C',  label: 'DF', x: 50, y: 72 },
+    { key: 'DF-R',  label: 'DF', x: 82, y: 72 },
+    { key: 'GK',    label: 'GK', x: 50, y: 88 },
+  ],
+  '3-2-1-1': [
+    { key: 'FW',    label: 'FW', x: 50, y: 10 },
+    { key: 'AM',    label: 'MF', x: 50, y: 30 },
+    { key: 'MF-L',  label: 'MF', x: 33, y: 52 },
+    { key: 'MF-R',  label: 'MF', x: 67, y: 52 },
+    { key: 'DF-L',  label: 'DF', x: 18, y: 72 },
+    { key: 'DF-C',  label: 'DF', x: 50, y: 72 },
+    { key: 'DF-R',  label: 'DF', x: 82, y: 72 },
+    { key: 'GK',    label: 'GK', x: 50, y: 88 },
+  ],
+  '2-1-3-1': [
+    { key: 'FW',    label: 'FW', x: 50, y: 10 },
+    { key: 'MF-L',  label: 'MF', x: 18, y: 30 },
+    { key: 'MF-C',  label: 'MF', x: 50, y: 30 },
+    { key: 'MF-R',  label: 'MF', x: 82, y: 30 },
+    { key: 'DM',    label: 'MF', x: 50, y: 52 },
+    { key: 'DF-L',  label: 'DF', x: 33, y: 72 },
+    { key: 'DF-R',  label: 'DF', x: 67, y: 72 },
+    { key: 'GK',    label: 'GK', x: 50, y: 88 },
+  ],
 }
 
 export const POSITION_COLORS: Record<string, string> = {
