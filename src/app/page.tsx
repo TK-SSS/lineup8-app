@@ -23,16 +23,26 @@ export default function HomePage() {
 
   useEffect(() => {
     if (matches.length > 0 && currentIndex === -1) {
-      const navTo = typeof window !== 'undefined' ? localStorage.getItem('lineup8-nav-to-match') : null
+      const navTo = localStorage.getItem('lineup8-nav-to-match')
+      const lastMatch = localStorage.getItem('lineup8-last-match')
       if (navTo) {
         localStorage.removeItem('lineup8-nav-to-match')
         const idx = matches.findIndex(m => m.id === navTo)
+        setCurrentIndex(idx >= 0 ? idx : matches.length - 1)
+      } else if (lastMatch) {
+        const idx = matches.findIndex(m => m.id === lastMatch)
         setCurrentIndex(idx >= 0 ? idx : matches.length - 1)
       } else {
         setCurrentIndex(matches.length - 1)
       }
     }
   }, [matches, currentIndex])
+
+  useEffect(() => {
+    if (currentIndex >= 0 && matches[currentIndex]) {
+      localStorage.setItem('lineup8-last-match', matches[currentIndex].id)
+    }
+  }, [currentIndex, matches])
 
   function handleNewMatch() {
     const newMatch: Match = createMatch(matches[currentIndex]?.formation ?? '3-3-1')
