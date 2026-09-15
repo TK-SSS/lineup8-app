@@ -32,7 +32,7 @@ function PositionSlot({ pos, player, subFromNum, isSwapped }: SlotProps) {
       ) : (
         <>
           <PlayerToken player={player} position={pos.key} isOver={isOver} subFromNum={subFromNum} isSwapped={isSwapped} />
-          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0.5 text-white/30 text-[11px] font-bold tracking-wide pointer-events-none select-none">
+          <div className="absolute top-1/2 right-full -translate-y-1/2 mr-1 text-white/30 text-[11px] font-bold tracking-wide pointer-events-none select-none">
             {pos.label}
           </div>
         </>
