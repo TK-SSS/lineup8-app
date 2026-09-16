@@ -53,6 +53,7 @@ export default function LineupScreen({
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
   const [swappedPositions, setSwappedPositions] = useState<Set<string>>(new Set())
   const [showFormationPicker, setShowFormationPicker] = useState(false)
+  const [showClearConfirm, setShowClearConfirm] = useState(false)
 
   const restingIds = new Set(match.restingPlayerIds ?? [])
 
@@ -232,14 +233,40 @@ export default function LineupScreen({
           </button>
         )}
         <button
-          onClick={() => { onClear(); onUpdateMatch({ substitutions: [], started: false }) }}
+          onClick={() => setShowClearConfirm(true)}
           className="py-2 px-4 rounded-xl font-bold text-sm text-violet-500 bg-violet-900/40 active:bg-violet-800/60 transition-all active:scale-95"
         >
           クリア
         </button>
       </div>
 
-      <MatchTimer />
+      <div className="sticky bottom-0 bg-black z-10">
+        <MatchTimer />
+      </div>
+
+      {/* Clear confirmation modal */}
+      {showClearConfirm && (
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-6">
+          <div className="bg-violet-950 border border-violet-600 rounded-2xl p-6 w-full max-w-xs">
+            <p className="text-white font-bold text-center text-base mb-2">クリアしますか？</p>
+            <p className="text-violet-400 text-sm text-center mb-6">スタメンと交代情報がリセットされます</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowClearConfirm(false)}
+                className="flex-1 py-2.5 rounded-xl text-sm text-violet-400 bg-violet-900/40 active:bg-violet-800/60 transition-all"
+              >
+                キャンセル
+              </button>
+              <button
+                onClick={() => { onClear(); onUpdateMatch({ substitutions: [], started: false }); setShowClearConfirm(false) }}
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-red-700/80 active:bg-red-600 transition-all"
+              >
+                クリア
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Substitution confirmation modal */}
       {pendingSub && (
