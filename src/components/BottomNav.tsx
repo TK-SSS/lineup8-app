@@ -9,7 +9,7 @@ export default function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 bg-black border-t border-violet-500/50 flex">
       <Link
         href="/matches"
-        className={`flex-1 flex flex-col items-center pt-1 pb-0 gap-0.5 text-sm transition-colors ${
+        className={`flex-1 flex flex-col items-center pt-0.5 pb-0 gap-0.5 text-sm transition-colors ${
           path === '/matches' ? 'text-violet-400' : 'text-violet-700 hover:text-violet-500'
         }`}
       >
@@ -21,7 +21,7 @@ export default function BottomNav() {
       </Link>
       <Link
         href="/"
-        className={`flex-1 flex flex-col items-center pt-1 pb-0 gap-0.5 transition-colors ${
+        className={`flex-1 flex flex-col items-center pt-0.5 pb-0 gap-0.5 transition-colors ${
           path === '/' ? 'text-violet-400' : 'text-violet-700 hover:text-violet-500'
         }`}
       >
@@ -34,7 +34,7 @@ export default function BottomNav() {
       </Link>
       <Link
         href="/players"
-        className={`flex-1 flex flex-col items-center pt-1 pb-0 gap-0.5 transition-colors ${
+        className={`flex-1 flex flex-col items-center pt-0.5 pb-0 gap-0.5 transition-colors ${
           path === '/players' ? 'text-violet-400' : 'text-violet-700 hover:text-violet-500'
         }`}
       >
@@ -47,7 +47,7 @@ export default function BottomNav() {
       </Link>
       <button
         onClick={() => window.location.reload()}
-        className="flex-1 flex flex-col items-center pt-1 pb-0 gap-0.5 transition-colors text-violet-700 hover:text-violet-500 active:text-violet-400"
+        className="flex-1 flex flex-col items-center pt-0.5 pb-0 gap-0.5 transition-colors text-violet-700 hover:text-violet-500 active:text-violet-400"
       >
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
