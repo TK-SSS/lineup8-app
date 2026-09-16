@@ -10,9 +10,10 @@ interface Props {
   subFromNum?: number  // on court: subbed in for #N
   subToNum?: number    // on bench: was subbed out for #N
   isSwapped?: boolean  // recently swapped — flash white border
+  isResting?: boolean  // bench only: marked as absent
 }
 
-export default function PlayerToken({ player, position, isOver, subFromNum, subToNum, isSwapped }: Props) {
+export default function PlayerToken({ player, position, isOver, subFromNum, subToNum, isSwapped, isResting }: Props) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: player.id,
     data: { position },
@@ -20,25 +21,29 @@ export default function PlayerToken({ player, position, isOver, subFromNum, subT
 
   const style = { transform: CSS.Translate.toString(transform) }
   const isBench = !position
+  const dragListeners = isResting ? {} : listeners
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      {...listeners}
+      {...dragListeners}
       {...attributes}
       className={`select-none touch-none transition-all ${isDragging ? 'opacity-30 scale-95' : ''} ${isOver ? 'scale-110' : ''}`}
     >
       {isBench ? (
         /* Bench: pill */
         <div className={`flex items-center gap-1 rounded-full px-2 py-1 border shadow-md ${
-          subToNum !== undefined
+          isResting
+            ? 'bg-gray-700/60 border-gray-500/60'
+            : subToNum !== undefined
             ? 'bg-violet-900/60 border-violet-600/60'
             : 'bg-violet-500 border-violet-300/60'
         }`}>
-          <span className={`text-sm font-black w-5 text-center ${subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.number}</span>
-          <span className={`text-sm font-semibold max-w-[52px] truncate ${subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.name}</span>
-          {subToNum !== undefined && (
+          <span className={`text-sm font-black w-5 text-center ${isResting ? 'text-gray-400' : subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.number}</span>
+          <span className={`text-sm font-semibold max-w-[52px] truncate ${isResting ? 'text-gray-400' : subToNum !== undefined ? 'text-violet-400' : 'text-white'}`}>{player.name}</span>
+          {isResting && <span className="text-gray-400 text-xs">休</span>}
+          {!isResting && subToNum !== undefined && (
             <span className="text-amber-400 text-xs font-bold">→{subToNum}</span>
           )}
         </div>

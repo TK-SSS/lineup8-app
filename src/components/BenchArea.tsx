@@ -1,15 +1,27 @@
 'use client'
 import { useDroppable } from '@dnd-kit/core'
+import { useRef } from 'react'
 import type { Player } from '@/types'
 import PlayerToken from './PlayerToken'
 
 interface Props {
   players: Player[]
   subOutMap?: Map<string, number>
+  restingIds: Set<string>
+  onToggleResting: (playerId: string) => void
 }
 
-export default function BenchArea({ players, subOutMap }: Props) {
+export default function BenchArea({ players, subOutMap, restingIds, onToggleResting }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id: 'bench' })
+  const lastTap = useRef<Record<string, number>>({})
+
+  function handleTap(playerId: string) {
+    const now = Date.now()
+    if (now - (lastTap.current[playerId] ?? 0) < 300) {
+      onToggleResting(playerId)
+    }
+    lastTap.current[playerId] = now
+  }
 
   return (
     <div className="px-3 py-1">
@@ -28,7 +40,13 @@ export default function BenchArea({ players, subOutMap }: Props) {
         ) : (
           <div className="flex flex-wrap gap-1.5 p-1.5">
             {players.map(p => (
-              <PlayerToken key={p.id} player={p} subToNum={subOutMap?.get(p.id)} />
+              <div key={p.id} onClick={() => handleTap(p.id)}>
+                <PlayerToken
+                  player={p}
+                  subToNum={subOutMap?.get(p.id)}
+                  isResting={restingIds.has(p.id)}
+                />
+              </div>
             ))}
           </div>
         )}

@@ -49,6 +49,15 @@ export default function LineupScreen({
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null)
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
   const [swappedPositions, setSwappedPositions] = useState<Set<string>>(new Set())
+  const [restingIds, setRestingIds] = useState<Set<string>>(new Set())
+
+  function toggleResting(id: string) {
+    setRestingIds(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -85,6 +94,7 @@ export default function LineupScreen({
     if (!over) return
 
     const playerId = active.id as string
+    if (restingIds.has(playerId)) return
     const sourcePos = (active.data.current?.position as string) ?? null
     const destId = over.id as string
 
@@ -162,7 +172,7 @@ export default function LineupScreen({
       </div>
 
       <CourtDisplay positions={positions} lineup={lineup} players={players} subInMap={subInMap} swappedPositions={swappedPositions} />
-      <BenchArea players={benchPlayers} subOutMap={subOutMap} />
+      <BenchArea players={benchPlayers} subOutMap={subOutMap} restingIds={restingIds} onToggleResting={toggleResting} />
 
       {/* Bottom action row */}
       <div className="px-3 pb-1 flex gap-2">
