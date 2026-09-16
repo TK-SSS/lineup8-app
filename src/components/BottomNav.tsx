@@ -6,10 +6,7 @@ export default function BottomNav() {
   const path = usePathname()
 
   return (
-    <nav
-      className="fixed bottom-0 left-0 right-0 bg-black border-t border-violet-500/50 flex"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-    >
+    <nav className="fixed bottom-0 left-0 right-0 bg-black border-t border-violet-500/50 flex">
       <Link
         href="/matches"
         className={`flex-1 flex flex-col items-center py-3 gap-0.5 text-sm transition-colors ${
