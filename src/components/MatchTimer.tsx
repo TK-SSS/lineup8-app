@@ -97,22 +97,20 @@ export default function MatchTimer() {
             </button>
           </div>
 
-          {/* Time display */}
-          <div className={`text-center font-mono font-black text-2xl tracking-widest leading-none py-1.5 ${timeColor}`}>
-            {mm}:{ss}
-          </div>
-
-          {/* Controls */}
-          <div className="flex gap-2 mt-3">
+          {/* Time display + controls inline */}
+          <div className="flex items-center justify-between gap-2">
             <button
               onClick={handleStartStop}
-              className="flex-1 py-2.5 rounded-xl font-bold text-sm text-white bg-violet-500 active:bg-violet-400 transition-all active:scale-95"
+              className="py-1.5 px-3 rounded-xl font-bold text-sm text-white bg-violet-500 active:bg-violet-400 transition-all active:scale-95"
             >
               {running ? '一時停止' : accumulatedMs > 0 ? '再開' : 'スタート'}
             </button>
+            <div className={`font-mono font-black text-2xl tracking-widest leading-none ${timeColor}`}>
+              {mm}:{ss}
+            </div>
             <button
               onClick={handleReset}
-              className="py-2.5 px-4 rounded-xl text-sm text-violet-400 bg-violet-900/40 active:bg-violet-800/60 active:scale-95 transition-all"
+              className="py-1.5 px-3 rounded-xl text-sm text-violet-400 bg-violet-900/40 active:bg-violet-800/60 active:scale-95 transition-all"
             >
               リセット
             </button>
