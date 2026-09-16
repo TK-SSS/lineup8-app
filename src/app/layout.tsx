@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja" className="h-full">
       <body className="h-full flex flex-col bg-[#0d0a1f]">
-        <main className="flex-1 overflow-y-auto overflow-x-hidden bg-black" style={{ paddingBottom: 'calc(3.5rem + env(safe-area-inset-bottom))' }}>
+        <main className="flex-1 overflow-y-auto overflow-x-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'calc(3.5rem + env(safe-area-inset-bottom))' }}>
           {children}
         </main>
         <BottomNav />
