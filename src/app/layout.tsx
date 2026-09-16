@@ -22,13 +22,14 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   themeColor: '#7C3AED',
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className="h-full">
       <body className="h-full flex flex-col bg-[#0d0a1f]">
-        <main className="flex-1 overflow-y-auto overflow-x-hidden pb-20 bg-black">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden bg-black" style={{ paddingBottom: 'calc(5rem + env(safe-area-inset-bottom))' }}>
           {children}
         </main>
         <BottomNav />

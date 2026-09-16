@@ -6,7 +6,10 @@ export default function BottomNav() {
   const path = usePathname()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-black border-t border-violet-500/50 flex safe-area-inset-bottom">
+    <nav
+      className="fixed bottom-0 left-0 right-0 bg-black border-t border-violet-500/50 flex"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
       <Link
         href="/matches"
         className={`flex-1 flex flex-col items-center py-3 gap-0.5 text-sm transition-colors ${
@@ -45,6 +48,15 @@ export default function BottomNav() {
           <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
       </Link>
+      <button
+        onClick={() => window.location.reload()}
+        className="flex-1 flex flex-col items-center py-3 gap-0.5 transition-colors text-violet-700 hover:text-violet-500 active:text-violet-400"
+      >
+        <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+        </svg>
+      </button>
     </nav>
   )
 }
