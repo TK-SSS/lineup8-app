@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     statusBarStyle: 'black-translucent',
     title: 'LineUp 8',
   },
+  icons: {
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
