@@ -1,8 +1,5 @@
 'use client'
-import { useState } from 'react'
-import type { Match, Formation } from '@/types'
-
-const FORMATIONS: Formation[] = ['3-3-1', '2-3-2', '3-2-2', '2-4-1', '3-1-2-1', '3-2-1-1', '2-1-3-1']
+import type { Match } from '@/types'
 
 interface Props {
   match: Match
@@ -21,7 +18,6 @@ function ScoreBtn({ label, onClick }: { label: string; onClick: () => void }) {
 }
 
 export default function MatchHeader({ match, onUpdate }: Props) {
-  const [showFormationPicker, setShowFormationPicker] = useState(false)
 
   const us = match.scoreUs ?? 0
   const opp = match.scoreOpp ?? 0
@@ -68,43 +64,6 @@ export default function MatchHeader({ match, onUpdate }: Props) {
         </div>
       </div>
 
-      {/* Row 2: date / time / formation */}
-      <div className="flex items-center justify-center gap-2 text-xs text-violet-200">
-        <input
-          type="date"
-          className="bg-transparent text-violet-200 text-xs outline-none cursor-pointer"
-          value={match.date}
-          onChange={e => onUpdate({ date: e.target.value })}
-        />
-        <input
-          type="time"
-          className="bg-transparent text-violet-200 text-xs outline-none cursor-pointer w-[52px]"
-          value={match.time}
-          onChange={e => onUpdate({ time: e.target.value })}
-        />
-        <div className="relative">
-          <button
-            className="flex items-center gap-0.5 font-semibold whitespace-nowrap"
-            onClick={() => setShowFormationPicker(p => !p)}
-          >
-            {match.formation}
-            <svg className="w-2 h-2" viewBox="0 0 10 6" fill="currentColor"><path d="M0 0l5 6 5-6z" /></svg>
-          </button>
-          {showFormationPicker && (
-            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 bg-violet-700 border border-violet-500 rounded-lg shadow-xl z-50 overflow-hidden">
-              {FORMATIONS.map(f => (
-                <button
-                  key={f}
-                  className={`block w-full px-6 py-3 text-left text-sm whitespace-nowrap hover:bg-violet-600 ${f === match.formation ? 'bg-violet-600 font-bold' : ''}`}
-                  onClick={() => { onUpdate({ formation: f }); setShowFormationPicker(false) }}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   )
 }

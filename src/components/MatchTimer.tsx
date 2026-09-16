@@ -26,9 +26,10 @@ export default function MatchTimer() {
   const mm = String(Math.floor(totalSec / 60)).padStart(2, '0')
   const ss = String(totalSec % 60).padStart(2, '0')
 
+  const oneMinMs = 1 * 60 * 1000
   const fiveMinMs = 5 * 60 * 1000
   const timeColor =
-    remainingMs <= 0 ? 'text-red-500' :
+    remainingMs <= oneMinMs ? 'text-red-500' :
     remainingMs <= fiveMinMs ? 'text-orange-400' :
     'text-emerald-400'
 
@@ -74,7 +75,7 @@ export default function MatchTimer() {
           {/* Duration + mode row */}
           <div className="flex items-center justify-between mb-2">
             <div className="flex gap-1">
-              {[10, 15, 20].map(m => (
+              {[5, 10, 15, 20].map(m => (
                 <button
                   key={m}
                   onClick={() => handleDurationChange(m)}
