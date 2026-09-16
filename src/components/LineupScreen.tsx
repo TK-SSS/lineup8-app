@@ -164,7 +164,7 @@ export default function LineupScreen({
 
         <button
           onClick={onNew}
-          className="w-9 h-9 flex items-center justify-center rounded-full bg-violet-500 text-white text-xl font-bold shadow active:scale-95 active:bg-violet-400 transition-all"
+          className="w-9 h-9 flex items-center justify-center rounded-full bg-violet-400 text-white text-xl font-bold shadow active:scale-95 active:bg-violet-300 transition-all"
         >
           +
         </button>
@@ -178,7 +178,7 @@ export default function LineupScreen({
         {!match.started ? (
           <button
             onClick={() => onUpdateMatch({ started: true })}
-            className="flex-1 py-2 rounded-xl font-bold text-sm text-white bg-violet-500 active:bg-violet-400 transition-all active:scale-95 shadow"
+            className="flex-1 py-2 rounded-xl font-bold text-sm text-white bg-violet-400 active:bg-violet-300 transition-all active:scale-95 shadow"
           >
             途中交代
           </button>
@@ -222,7 +222,7 @@ export default function LineupScreen({
             </div>
             <button
               onClick={confirmSub}
-              className="w-full py-3 bg-violet-500 text-white font-bold rounded-xl mb-2 active:scale-95 transition-all"
+              className="w-full py-3 bg-violet-400 text-white font-bold rounded-xl mb-2 active:scale-95 transition-all"
             >
               途中交代
             </button>

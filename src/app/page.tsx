@@ -64,7 +64,7 @@ export default function HomePage() {
         </p>
         <button
           onClick={handleNewMatch}
-          className="bg-violet-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all"
+          className="bg-violet-400 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all"
         >
           ＋　試合を作成する
         </button>
