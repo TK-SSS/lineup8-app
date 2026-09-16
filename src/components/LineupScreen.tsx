@@ -49,14 +49,13 @@ export default function LineupScreen({
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null)
   const [pendingSub, setPendingSub] = useState<{ benchPlayerId: string; targetPos: string } | null>(null)
   const [swappedPositions, setSwappedPositions] = useState<Set<string>>(new Set())
-  const [restingIds, setRestingIds] = useState<Set<string>>(new Set())
+
+  const restingIds = new Set(match.restingPlayerIds ?? [])
 
   function toggleResting(id: string) {
-    setRestingIds(prev => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      return next
-    })
+    const next = new Set(restingIds)
+    next.has(id) ? next.delete(id) : next.add(id)
+    onUpdateMatch({ restingPlayerIds: [...next] })
   }
 
   const sensors = useSensors(

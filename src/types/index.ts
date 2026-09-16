@@ -29,6 +29,7 @@ export interface Match {
   started?: boolean
   substitutions?: Substitution[]
   playerSnapshot?: Record<string, PlayerSnapshot>
+  restingPlayerIds?: string[]
 }
 
 // position key -> player id
