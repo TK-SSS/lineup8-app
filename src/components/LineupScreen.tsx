@@ -16,6 +16,7 @@ import MatchHeader from './MatchHeader'
 import CourtDisplay from './CourtDisplay'
 import BenchArea from './BenchArea'
 import PlayerToken from './PlayerToken'
+import MatchTimer from './MatchTimer'
 
 interface Props {
   match: Match
@@ -197,6 +198,8 @@ export default function LineupScreen({
           クリア
         </button>
       </div>
+
+      <MatchTimer />
 
       {/* Substitution confirmation modal */}
       {pendingSub && (

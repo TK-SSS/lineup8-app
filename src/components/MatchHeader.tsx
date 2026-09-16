@@ -27,7 +27,7 @@ export default function MatchHeader({ match, onUpdate }: Props) {
   const opp = match.scoreOpp ?? 0
 
   return (
-    <div className="bg-violet-600 px-3 pt-1 pb-1 text-white">
+    <div className="bg-violet-600 px-3 pt-0.5 pb-0.5 text-white">
       {/* Row 1: our score | vs | opponent input + their score */}
       <div className="flex items-end justify-between gap-2">
         {/* Our score */}
