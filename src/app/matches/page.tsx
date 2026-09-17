@@ -40,30 +40,28 @@ function MatchRow({
   return (
     <div className="border-b border-violet-900/40">
       <div className="flex items-center">
-        <button onClick={onSelect} className="flex-1 px-3 py-3 text-left flex items-center gap-3 min-w-0">
-          <span className="text-violet-300 font-black text-base w-10 shrink-0">{formatDate(match.date)}</span>
-          <span className="text-violet-500 text-sm w-10 shrink-0">{match.time || '—'}</span>
-          <span className={`text-base font-bold w-24 shrink-0 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
-            {match.opponent || '未設定'}
-          </span>
-          <span className="text-violet-500 text-sm shrink-0 whitespace-nowrap">{match.formation}</span>
-          <span className="flex-1 shrink-0 text-right">
-            {hasScore && (
-              <span className="bg-violet-700 text-white font-black text-base px-2 py-0.5 rounded-lg tabular-nums">
-                {us}-{opp}
-              </span>
-            )}
-          </span>
-        </button>
-
         <button
           onClick={() => setMemoOpen(o => !o)}
-          className={`px-2 py-3 flex items-center transition-colors shrink-0 ${hasMemo || memoOpen ? 'text-violet-400' : 'text-violet-800'} active:text-violet-300`}
+          className={`pl-3 pr-1 py-3 flex items-center transition-colors shrink-0 ${hasMemo || memoOpen ? 'text-violet-400' : 'text-violet-800'} active:text-violet-300`}
           aria-label="メモ"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
           </svg>
+        </button>
+
+        <button onClick={onSelect} className="flex-1 px-2 py-3 text-left flex items-center gap-2 min-w-0">
+          <span className="text-violet-300 font-black text-base w-10 shrink-0">{formatDate(match.date)}</span>
+          <span className="text-violet-500 text-sm w-10 shrink-0">{match.time || '—'}</span>
+          <span className={`text-base font-bold flex-1 truncate ${match.opponent ? 'text-white' : 'text-violet-700 italic'}`}>
+            {match.opponent || '未設定'}
+          </span>
+          <span className="text-violet-500 text-sm shrink-0 whitespace-nowrap">{match.formation}</span>
+          {hasScore && (
+            <span className="bg-violet-700 text-white font-black text-sm px-2 py-0.5 rounded-lg tabular-nums shrink-0">
+              {us}-{opp}
+            </span>
+          )}
         </button>
 
         <button
