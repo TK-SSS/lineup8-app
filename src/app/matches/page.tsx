@@ -42,10 +42,10 @@ function MatchRow({
       <div className="flex items-center">
         <button
           onClick={() => setMemoOpen(o => !o)}
-          className={`pl-3 pr-1 py-3 flex items-center transition-colors shrink-0 ${hasMemo || memoOpen ? 'text-violet-400' : 'text-violet-800'} active:text-violet-300`}
+          className={`pl-3 pr-1 py-3 flex items-center transition-colors shrink-0 ${hasMemo ? 'text-orange-400' : memoOpen ? 'text-violet-400' : 'text-violet-800'} active:text-orange-300`}
           aria-label="メモ"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
           </svg>
         </button>
